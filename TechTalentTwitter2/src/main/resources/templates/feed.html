@@ -7,6 +7,15 @@
 </head>
 
 <body>
+    <div th:replace="fragments/navbar"></div>
+    <!-- Feed enhancements  -->
+    <ul class="nav nav-tabs">
+    <li role="presentation" th:classappend="${filter == 'all' ? 'active' : '' }">
+        <a href="/tweets">All</a></li>
+    <li role="presentation" th:classappend="${filter == 'following' ? 'active' : '' }">
+        <a href="/tweets?filter=following">Following</a></li>
+</ul><br/>
+    <!-- End Feed enhancements -->
     <div class="container">
         <h2>Tweets</h2>
 		<ul class="nav nav-tabs">
