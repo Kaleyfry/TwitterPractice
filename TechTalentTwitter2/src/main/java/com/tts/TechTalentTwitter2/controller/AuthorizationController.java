@@ -14,35 +14,34 @@ import com.tts.TechTalentTwitter2.service.UserService;
 
 @Controller
 public class AuthorizationController {
-
-	@Autowired
+	//Map the service class to this class so you can use its associated methods
+    @Autowired
     private UserService userService;
-
+    //default login
     @GetMapping(value="/login")
     public String login(){
         return "login";
     }
-    
+
     @GetMapping(value="/signup")
     public String registration(Model model){
-        User user = new User();
+    	User user = new User();
         model.addAttribute("user", user);
         return "registration";
-    }
+        }
 
     @PostMapping(value = "/signup")
     public String createNewUser(@Valid User user, BindingResult bindingResult, Model model) {
-        User userExists = userService.findByUsername(user.getUsername());
+    	User userExists = userService.findByUsername(user.getUsername());
         if (userExists != null) {
-            bindingResult.rejectValue("username", "error.user", "Username is already taken");
+        bindingResult.rejectValue("username", "error.user", "Username is already taken");
         }
         if (!bindingResult.hasErrors()) {
-            userService.saveNewUser(user);
+        	userService.saveNewUser(user);
             model.addAttribute("success", "Sign up successful!");
             model.addAttribute("user", new User());
         }
-        return "registration";
-    }
-	
+            return "registration";
+        }
+        
 }
-

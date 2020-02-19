@@ -26,17 +26,26 @@ public class TweetController {
     @Autowired
     private TweetService tweetService;
     
+  //Method that allows us to get all tweets
     @GetMapping(value= {"/tweets", "/"})
     public String getFeed(Model model){
         List<Tweet> tweets = tweetService.findAll();
         model.addAttribute("tweetList", tweets);
         return "feed";
     }
-    
+  //Method that allows us to serve up the 'new tweet' page
     @GetMapping(value = "/tweets/new")
     public String getTweetForm(Model model) {
         model.addAttribute("tweet", new Tweet());
         return "newTweet";
+    }
+    
+    @GetMapping(value = "/tweets/{tag}")
+    public String getTweetsByTag(@PathVariable(value="tag") String tag, Model model) {
+        List<Tweet> tweets = tweetService.findAllWithTag(tag);
+        model.addAttribute("tweetList", tweets);
+        model.addAttribute("tag", tag);
+        return "taggedTweets";
     }
     
     @PostMapping(value = "/tweets")
@@ -49,13 +58,5 @@ public class TweetController {
             model.addAttribute("tweet", new Tweet());
         }
         return "newTweet";
-    }
-    
-    @GetMapping(value = "/tweets/{tag}")
-    public String getTweetsByTag(@PathVariable(value="tag") String tag, Model model) {
-        List<Tweet> tweets = tweetService.findAllWithTag(tag);
-        model.addAttribute("tweetList", tweets);
-        model.addAttribute("tag", tag);
-        return "taggedTweets";
     }
 }

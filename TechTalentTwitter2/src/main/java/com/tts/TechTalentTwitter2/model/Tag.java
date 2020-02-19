@@ -26,9 +26,8 @@ public class Tag {
 	@Column(name = "tag_id")
 	private Long id;
 
-	private String phrase;
-	
+private String phrase;
 	@ManyToMany(mappedBy = "tags")
 	private List<Tweet> tweets;
 
-	}
+}

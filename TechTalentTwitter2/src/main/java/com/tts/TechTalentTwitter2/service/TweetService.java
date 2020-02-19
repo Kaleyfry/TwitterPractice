@@ -19,6 +19,8 @@ import com.tts.TechTalentTwitter2.repository.TweetRepository;
 @Service
 public class TweetService {
 	
+	//business logic of what we can do with the tweets - all we can do with tweets
+	
 	@Autowired
 	private TweetRepository tweetRepository;
 	
